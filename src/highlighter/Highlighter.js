@@ -40,6 +40,7 @@ export default class Highlighter {
 
   _addAnnotation = annotation => {
     try {
+      console.log(`_addAnnotation: ${annotation.start}, ${annotation.end}`)
       const [ domStart, domEnd ] = this.charOffsetsToDOMPosition([ annotation.start, annotation.end ]);
 
       const range = document.createRange();
@@ -195,6 +196,7 @@ export default class Highlighter {
   }
 
   charOffsetsToDOMPosition = charOffsets => {
+    console.log("charOffsets")
     const maxOffset = Math.max.apply(null, charOffsets);
 
     const textNodeProps = (() => {
@@ -236,6 +238,7 @@ export default class Highlighter {
   }
 
   calculateDomPositionWithin = (textNodeProperties, charOffsets) => {
+    console.log("calculateDomPositionWithin")
     var positions = [];
 
     textNodeProperties.forEach(function(props, i) {
@@ -262,6 +265,7 @@ export default class Highlighter {
   }
 
   wrapRange = (range, commonRoot) => {
+    console.log('wrapping range')
     const root = commonRoot ? commonRoot : this.el;
 
     const surround = range => {

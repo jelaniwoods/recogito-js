@@ -57,7 +57,7 @@ export default class SelectionHandler extends EventEmitter {
 
   _onMouseUp = evt => {
     if (this.isEnabled) {
-      const selection = this.document.getSelection();
+      let selection = this.document.getSelection();
 
       if (selection.isCollapsed) {
         const annotationSpan = evt.target.closest('.r6o-annotation');
@@ -71,6 +71,27 @@ export default class SelectionHandler extends EventEmitter {
           this.emit('select', {});
         }
       } else if (!this.readOnly) {
+        this.el.querySelectorAll(".CodeMirror-measure").forEach(element => {
+          element.innerHTML = ""
+        });
+
+        this.el.querySelectorAll(".CodeMirror-cursor").forEach(element => {
+          element.innerHTML = ""
+        });
+
+        this.el.querySelectorAll("turbo-frame.repl-feedback-frame").forEach(element => {
+          element.innerHTML = "";
+        });
+
+        this.el.querySelectorAll("turbo-frame.question-feedback-frame").forEach(element => {
+          element.innerHTML = "";
+        });
+
+        this.el.querySelectorAll(".test-rerun-output").forEach(element => {
+          element.innerHTML = "";
+        });
+
+        selection = this.document.getSelection();
         const selectedRange = trimRange(selection.getRangeAt(0));
 
         // Make sure the selection is entirely inside this.el
