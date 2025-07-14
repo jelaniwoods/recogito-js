@@ -102,7 +102,6 @@ export default class TextAnnotator extends Component {
   }
 
   onHeadlessSelect = evt => {
-    console.log('onHeadlessSelect')
     const { selection, element } = evt;
     if (selection) {
       this.setState({
@@ -117,28 +116,6 @@ export default class TextAnnotator extends Component {
         // Selection of existing annotation
         this.props.onAnnotationSelected(selection.clone(), element);
       } else {
-        console.log("eyah")
-        console.log(selection)
-        // this.props.contentEl.querySelectorAll(".CodeMirror-measure").forEach(element => {
-        //   element.innerHTML = ""
-        // });
-
-        // this.props.contentEl.querySelectorAll(".CodeMirror-cursor").forEach(element => {
-        //   element.innerHTML = ""
-        // });
-
-
-        // // the "Processing…" text might be present
-        // this.props.contentEl.querySelectorAll("turbo-frame.repl-feedback-frame").forEach(element => {
-        //   element.innerHTML = "";
-        // });
-
-        // // Remove codeblock test output (if there is any)
-        // this.props.contentEl.querySelectorAll(".test-rerun-output").forEach(element => {
-        //   // log(element.innerText.length)
-        //   element.innerHTML = "";
-        //   // log(element.innerText.length)
-        // });
         // Notify backend text selection to create a new annotation
         const undraft = annotation =>
         annotation.clone({
@@ -211,7 +188,6 @@ export default class TextAnnotator extends Component {
 
   /** Common handler for annotation CREATE or UPDATE **/
   onCreateOrUpdateAnnotation = method => (annotation, previous) => {
-    console.log("TextAnnotator#onCreateOrUpdate")
     this.clearState();
 
     this.selectionHandler.clearSelection();
@@ -290,7 +266,6 @@ export default class TextAnnotator extends Component {
   /****************/
 
   addAnnotation = annotation => {
-    console.log("TextAnnotator#addAnnotation")
     this.highlighter.addOrUpdateAnnotation(annotation.clone());
   }
 
