@@ -59,6 +59,26 @@ export default class SelectionHandler extends EventEmitter {
     if (this.isEnabled) {
       let selection = this.document.getSelection();
 
+      // If Selection has any interactable Ranges
+      if (!selection.rangeCount) return [];
+      let elements = [];
+
+      this.document.querySelectorAll("*").forEach(node => {
+          if (selection.containsNode(node, true)) elements.push(node);
+      });
+
+      let containsNonAnnotatableElement = false;
+      for (let index = 0; index < elements.length; index++) {
+        const element = elements[index];
+        if (element.getAttribute("class") && element.getAttribute("class").includes("non-annotatable")) {
+          containsNonAnnotatableElement = true;
+          break;
+        }
+      }
+
+      // Cancel annotation if non-annotatable element is selected
+      if (containsNonAnnotatableElement) return;
+
       if (selection.isCollapsed) {
         const annotationSpan = evt.target.closest('.r6o-annotation');
         if (annotationSpan) {
